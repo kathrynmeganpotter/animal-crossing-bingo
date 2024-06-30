@@ -1,7 +1,10 @@
+import Card from './Card/Card.tsx'; 
+
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <>
+      <h1>Animal Crossing Bingo!</h1>
+      <Card/>
+    </>
   )
 }
