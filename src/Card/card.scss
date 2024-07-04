@@ -1,5 +1,17 @@
 .bingo-card {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-left: 12px; 
+    padding-top: 10px;
+
     &__row {
         display: inline-block;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .bingo-card {
+        padding-left: 0px;
     }
 }
