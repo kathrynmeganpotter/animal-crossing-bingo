@@ -20,9 +20,13 @@ export default function App() {
       }
       
       for (let i=0; i<=24; i++) {
+        if(i === 12) {
+          cardArray.push("Free Space");    
+        } else {
           const random = villagerNameArray[Math.floor(Math.random()* villagerNameArray.length)]
           villagerNameArray = villagerNameArray.filter(item => item !== random);
           cardArray.push(random);
+        }
       }
       setBingoCard(cardArray); 
       setGenerate(true);

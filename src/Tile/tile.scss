@@ -1,8 +1,14 @@
-.bingo-card__square {
-    padding: 3px; 
-    display: flex;
-    justify-content: center; 
-    align-items: center;
+.bingo-card {
+    &__square {
+        padding: 3px; 
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+    }
+    
+    &__selected {
+        background-color: palegoldenrod;
+    }
 }
 
 @media only screen and (min-width: 600px) {
