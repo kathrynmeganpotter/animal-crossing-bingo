@@ -6,15 +6,16 @@ import Alert from 'react-bootstrap/Alert';
 export default function Card({bingoCard}) {
     const [tiles, setTiles] = useState(Array(25).fill(false));
     const [bingo, setBingo] = useState(false); 
+    const [show, setShow] = useState(true);
 
-    function handleClick(i, state) {
+    function handleClick(i : number, state : boolean) {
         const nextTiles = tiles.slice();
         nextTiles[i] = state ? false : true; 
         setTiles(nextTiles);
         calculateWinner(nextTiles)
     }
 
-    function calculateWinner(tiles) {
+    function calculateWinner(tiles : any) {
         const lines = [
           [0, 5, 10, 15, 20],
           [1, 6, 11, 16, 21],
@@ -42,7 +43,7 @@ export default function Card({bingoCard}) {
     return (
         <>
             {bingo && 
-                <Alert key="success" variant="success">
+                <Alert key="success" variant="success" onClose={() => setShow(false)} dismissible>
                     Bingo!!!
                 </Alert>
             }
