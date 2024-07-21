@@ -42,11 +42,13 @@ export default function Card({bingoCard}) {
 
     return (
         <>
-            {bingo && 
-                <Alert key="success" variant="success" onClose={() => setShow(false)} dismissible>
-                    Bingo!!!
-                </Alert>
-            }
+            <div className="success-message px-4">
+                {bingo && 
+                    <Alert key="success" variant="success" onClose={() => setShow(false)} dismissible>
+                        Bingo!!!
+                    </Alert>
+                }
+            </div>
             <div className="bingo-card">
                 <div className="bingo-card__row">
                     <Tile name={bingoCard[0]} onTileClick={() => handleClick(0, tiles[0])} selected={tiles[0]}/>
