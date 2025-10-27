@@ -1,7 +1,7 @@
+import { Alert } from "@mui/material";
 import Tile from "../Tile/Tile.js";
 import "./card.scss"; 
 import { useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
 
 export default function Card({bingoCard}) {
     const [tiles, setTiles] = useState(Array(25).fill(false));
@@ -44,7 +44,7 @@ export default function Card({bingoCard}) {
         <>
             <div className="success-message px-4">
                 {bingo && 
-                    <Alert key="success" variant="success" onClose={() => setShow(false)} dismissible>
+                    <Alert severity="success" variant="outlined">
                         Bingo!!!
                     </Alert>
                 }
