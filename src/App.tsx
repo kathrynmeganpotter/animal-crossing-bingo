@@ -1,9 +1,10 @@
 import Card from "./Card/Card.tsx";
 import { useState } from "react";
 import { villagers } from "animal-crossing";
-import Options from "./Options/Options.tsx";
-import AppBar from "@mui/material/AppBar";
-import { Typography, Alert, Grid, Box, Button } from "@mui/material";
+import Header from "./Header/Header.tsx";
+import { Grid } from "@mui/material";
+import HowToPlay from "./HowToPlay/HowToPlay.tsx";
+import BingoControls from "./BingoControls/BingoControls.tsx";
 
 export default function App() {
   const [bingoCard, setBingoCard] = useState(Array(24).fill(null));
@@ -62,44 +63,10 @@ export default function App() {
 
   return (
     <Grid>
-      <AppBar position="static">
-        <Typography
-          variant="h2"
-          sx={{ flexGrow: 1, p: 2, textAlign: "center" }}
-        >
-          Animal Crossing Bingo
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          sx={{ flexGrow: 1, pb: 2, textAlign: "center" }}
-        >
-          Find the villagers and get bingo!
-        </Typography>
-      </AppBar>
+      <Header/>
       <Grid size={12} sx={{ margin: 2.5 }}>
-        <br />
-        <Alert severity="info" variant="outlined">
-          How to play
-          <ol>
-            <li>
-              Select villagers that you want to be excluded from the bingo card
-            </li>
-            <li>Click the generate button</li>
-            <li>
-              When you find a villager click on the square
-            </li>
-          </ol>
-        </Alert>
-        <br />
-        <Box sx={{ textAlign: "center" }}>
-          <Options
-            villagers={generateNameArray()}
-            updateExcludedVillagersArray={updateExcludedVillagersArray}
-          />
-          <Button variant="contained" onClick={() => generateBingoCard()}>
-            Generate
-          </Button>
-        </Box>
+        <HowToPlay />  
+        <BingoControls nameArray={generateNameArray()} updateExcludedVillagersArray={updateExcludedVillagersArray} generateBingoCard={generateBingoCard}/>
         <div className="main-content">
           {bingoCard.filter((value) => value != null).length !== 0 && (
             <Card bingoCard={bingoCard} reset={reset} setReset={setReset}/>

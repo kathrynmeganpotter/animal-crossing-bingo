@@ -8,7 +8,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 
-export default function Options({ villagers, updateExcludedVillagersArray }) {
+export default function VillagerSelector ({ villagers, updateExcludedVillagersArray }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
