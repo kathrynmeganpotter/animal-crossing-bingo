@@ -8,6 +8,7 @@ import { Typography, Alert, Grid, Box, Button } from "@mui/material";
 export default function App() {
   const [bingoCard, setBingoCard] = useState(Array(24).fill(null));
   const [excludedVillagers, setExcludedVillagers] = useState([]);
+  const [reset, setReset] = useState(false);
 
   /**
    * Generate a list of all the villagers excluding any that have been selected by the user/ sanrio villagers
@@ -56,6 +57,7 @@ export default function App() {
       }
     }
     setBingoCard(cardArray);
+    setReset(true); 
   }
 
   return (
@@ -89,7 +91,7 @@ export default function App() {
           </ol>
         </Alert>
         <br />
-        <Box>
+        <Box sx={{ textAlign: "center" }}>
           <Options
             villagers={generateNameArray()}
             updateExcludedVillagersArray={updateExcludedVillagersArray}
@@ -100,7 +102,7 @@ export default function App() {
         </Box>
         <div className="main-content">
           {bingoCard.filter((value) => value != null).length !== 0 && (
-            <Card bingoCard={bingoCard} />
+            <Card bingoCard={bingoCard} reset={reset} setReset={setReset}/>
           )}
         </div>
       </Grid>

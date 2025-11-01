@@ -1,16 +1,22 @@
-import { Alert } from "@mui/material";
+import { Snackbar } from "@mui/material";
 import Tile from "../Tile/Tile.js";
 import "./card.scss"; 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function Card({bingoCard}) {
+export default function Card({bingoCard, reset, setReset}) {
     const [tiles, setTiles] = useState(Array(25).fill(false));
     const [bingo, setBingo] = useState(false); 
+
+    useEffect(() => {
+        setTiles(Array(25).fill(false));
+        setReset(false);
+    }, [reset]);
 
     function handleClick(i : number, state : boolean) {
         const nextTiles = tiles.slice();
         nextTiles[i] = state ? false : true; 
         setTiles(nextTiles);
+        // Is it a new bingo?
         calculateWinner(nextTiles)
     }
 
@@ -43,9 +49,12 @@ export default function Card({bingoCard}) {
         <>
             <div className="success-message px-4">
                 {bingo && 
-                    <Alert severity="success" variant="outlined">
-                        Bingo!!!
-                    </Alert>
+                    <Snackbar
+                        open={bingo}
+                        autoHideDuration={5000}
+                        onClose={() => setBingo(false)}
+                        message="Bingo!!!"
+                        />
                 }
             </div>
             <div className="bingo-card">

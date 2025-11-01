@@ -51,7 +51,7 @@ export default function Options({ villagers, updateExcludedVillagersArray }) {
       <br />
       <div>
         {selected.length > 0 && (
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, justifyContent: "center" }}>
             {selected.map((value) => (
               <Chip key={value} label={value} />
             ))}
