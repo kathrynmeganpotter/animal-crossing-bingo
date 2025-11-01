@@ -6,7 +6,6 @@ import { useState } from 'react';
 export default function Card({bingoCard}) {
     const [tiles, setTiles] = useState(Array(25).fill(false));
     const [bingo, setBingo] = useState(false); 
-    const [show, setShow] = useState(true);
 
     function handleClick(i : number, state : boolean) {
         const nextTiles = tiles.slice();

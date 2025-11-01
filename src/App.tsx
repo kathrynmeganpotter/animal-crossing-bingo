@@ -35,9 +35,8 @@ export default function App() {
    * Update the excluded villagaers array
    * @param items list of villagers to exclude
    */
-  function updateExcludedVillagersArray(items: any) {
-    let excludedVillagersArray = items.flatMap((x: any) => x.label);
-    setExcludedVillagers(excludedVillagersArray);
+  function updateExcludedVillagersArray(items: string[]) {
+    setExcludedVillagers(items);
   }
 
   function generateBingoCard() {
@@ -46,7 +45,7 @@ export default function App() {
 
     for (let i = 0; i <= 24; i++) {
       if (i === 12) {
-        cardArray.push("Free Space");
+        cardArray.push("Free");
       } else {
         const random =
           villagerNameArray[
