@@ -19,7 +19,7 @@ export default function VillagerSelector ({ villagers, setExcludedVillagers }) {
         Select villagers to be excluded from the bingo card
       </Typography>
       <br />
-      <div>
+      <Box sx={{ paddingBottom: 2 }}>
         <FormControl sx={{ minWidth: 300 }}>
           <Autocomplete
             freeSolo
@@ -47,18 +47,16 @@ export default function VillagerSelector ({ villagers, setExcludedVillagers }) {
             sx={{ minWidth: 300 }}
           />
         </FormControl>
-      </div>
-      <br />
+      </Box>
       <div>
         {selected.length > 0 && (
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, justifyContent: "center" }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, justifyContent: "center", paddingBottom: 2 }}>
             {selected.map((value) => (
               <Chip key={value} label={value} />
             ))}
           </Box>
         )}
       </div>
-      <br />
     </>
   );
 }

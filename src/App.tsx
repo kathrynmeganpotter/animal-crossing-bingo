@@ -1,10 +1,10 @@
-import BingoBoard from "./BingoBoard/BingoBoard.tsx";
+import Board from "./Bingo/Components/Board/Board.tsx";
 import { useState } from "react";
 import { villagers } from "animal-crossing";
-import Header from "./Header/Header.tsx";
+import Header from "./Layout/Header/Header.tsx";
 import { Grid } from "@mui/material";
-import HowToPlay from "./HowToPlay/HowToPlay.tsx";
-import BingoControls from "./BingoControls/BingoControls.tsx";
+import HowToPlay from "./Bingo/Components/HowToPlay/HowToPlay.tsx";
+import BingoControls from "./Bingo/Components/Controls/Controls.tsx";
 
 export default function App() {
   const [bingoCard, setBingoCard] = useState(Array(24).fill(null));
@@ -61,7 +61,7 @@ export default function App() {
         <BingoControls nameArray={generateNameArray()} generateBingoCard={generateBingoCard} setExcludedVillagers={setExcludedVillagers}/>
         <div className="main-content">
           {bingoCard.filter((value) => value != null).length !== 0 && (
-            <BingoBoard bingoCard={bingoCard} reset={reset} setReset={setReset}/>
+            <Board bingoCard={bingoCard} reset={reset} setReset={setReset}/>
           )}
         </div>
       </Grid>

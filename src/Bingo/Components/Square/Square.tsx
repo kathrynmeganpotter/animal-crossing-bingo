@@ -1,11 +1,11 @@
-import "./tile.scss";
+import "./square.scss";
 
-export default function Tile({ name, onTileClick, selected }) {
+export default function BingoSquare({ name, onBingoSquareClick, selected }) {
   return (
     <div className="col border">
       <div
         className='bingo-card__square'
-        onClick={onTileClick}
+        onClick={onBingoSquareClick}
       >
         {selected && (
           <span className="bingo-card__square--selected">
