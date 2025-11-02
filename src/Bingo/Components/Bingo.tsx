@@ -5,6 +5,7 @@ import HowToPlay from "./HowToPlay/HowToPlay.tsx";
 import BingoControls from "./Controls/Controls.tsx";
 import Board from "./Board/Board.tsx";
 import { useGenerateBingoCard } from "../Hooks/useGenerateBingoCard.tsx";
+import { DEFAULT_IGNORED_VILLAGERS } from "../../Constants/SanrioVillagers.ts";
 
 export default function Game() {
   const [excludedVillagers, setExcludedVillagers] = useState([]);
@@ -14,26 +15,15 @@ export default function Game() {
    * Generate a list of all the villagers excluding any that have been selected by the user/ sanrio villagers
    * @returns an array consisting of all the villagers name
    */
-  function generateNameArray() {
-    // villagers to ignore (sanrio)
-    var villagersToIgnore = [
-      "Rilla",
-      "Marty",
-      "Étoile",
-      "Chai",
-      "Chelsea",
-      "Toby",
-    ];
-    // combine villagers to ignore array with any excluded villagers
-    villagersToIgnore = villagersToIgnore.concat(excludedVillagers);
-    // return a list of villagers excluding any ignored villagers
-    return villagers
-      .filter((x) => !villagersToIgnore.includes(x.name))
-      .map((x) => x.name);
+  function getAvailableVillagerNames() {
+    // combine villagers from default ignore array with any excluded villagers
+    const ignored = new Set([...DEFAULT_IGNORED_VILLAGERS, ...excludedVillagers]);
+    // return a list of available villagers excluding any ignored villagers
+    return villagers.filter((v) => !ignored.has(v.name)).map((v) => v.name);
   }
 
-  const [bingoCard, generateBingoCard] = useGenerateBingoCard(generateNameArray);
-  const nameArray = useMemo(() => generateNameArray(), [excludedVillagers]);
+  const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagerNames);
+  const nameArray = useMemo(() => getAvailableVillagerNames(), [excludedVillagers]);
 
   return (
     <Grid size={12} sx={{ margin: 2.5 }}>

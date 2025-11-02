@@ -4,8 +4,6 @@ export function useGenerateBingoCard(getNames : () => string []): [string[], () 
   const [bingoCard, setBingoCard] = useState<string[]>([]);
 
   function generateCard() {
-    console.log("Generating bingo card");
-
     const villagerNameArray = [...getNames()];
     const cardArray: string[] = [];
 
@@ -19,7 +17,6 @@ export function useGenerateBingoCard(getNames : () => string []): [string[], () 
         cardArray.push(random);
       }
     }
-    console.log(cardArray);
     setBingoCard(cardArray);
   }
 
