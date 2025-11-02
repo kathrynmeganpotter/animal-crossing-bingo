@@ -1,4 +1,4 @@
-import Card from "./Card/Card.tsx";
+import BingoBoard from "./BingoBoard/BingoBoard.tsx";
 import { useState } from "react";
 import { villagers } from "animal-crossing";
 import Header from "./Header/Header.tsx";
@@ -33,14 +33,6 @@ export default function App() {
       .map((x) => x.name);
   }
 
-  /**
-   * Update the excluded villagaers array
-   * @param items list of villagers to exclude
-   */
-  function updateExcludedVillagersArray(items: string[]) {
-    setExcludedVillagers(items);
-  }
-
   function generateBingoCard() {
     let cardArray = [];
     let villagerNameArray = generateNameArray();
@@ -66,10 +58,10 @@ export default function App() {
       <Header/>
       <Grid size={12} sx={{ margin: 2.5 }}>
         <HowToPlay />  
-        <BingoControls nameArray={generateNameArray()} updateExcludedVillagersArray={updateExcludedVillagersArray} generateBingoCard={generateBingoCard}/>
+        <BingoControls nameArray={generateNameArray()} generateBingoCard={generateBingoCard} setExcludedVillagers={setExcludedVillagers}/>
         <div className="main-content">
           {bingoCard.filter((value) => value != null).length !== 0 && (
-            <Card bingoCard={bingoCard} reset={reset} setReset={setReset}/>
+            <BingoBoard bingoCard={bingoCard} reset={reset} setReset={setReset}/>
           )}
         </div>
       </Grid>

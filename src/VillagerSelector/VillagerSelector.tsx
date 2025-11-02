@@ -8,7 +8,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 
-export default function VillagerSelector ({ villagers, updateExcludedVillagersArray }) {
+export default function VillagerSelector ({ villagers, setExcludedVillagers }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
@@ -32,7 +32,7 @@ export default function VillagerSelector ({ villagers, updateExcludedVillagersAr
               let valueToAdd = typeof newValue === "string" ? newValue : newValue?.label || "";
               if (valueToAdd && !selected.includes(valueToAdd)) {
                 setSelected([...selected, valueToAdd]);
-                updateExcludedVillagersArray([...selected, newValue]);
+                setExcludedVillagers([...selected, newValue]);
                 setSearchText("");
               }
             }}
