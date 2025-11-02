@@ -4,7 +4,9 @@ import "./board.scss";
 import { useBingoCheck } from "../../Hooks/useBingoCheck.js";
 import { useEffect, useState } from "react";
 
-export default function BingoBoard({ bingoCard, reset, setReset }) {
+export default function Board({ bingoCard, reset, setReset }) {
+  console.log("BingoCard");
+
   const [tiles, setTiles] = useState(Array(25).fill(false));
   const [bingo, setBingo] = useState(false);
 
@@ -28,6 +30,8 @@ export default function BingoBoard({ bingoCard, reset, setReset }) {
       return nextTiles;
     });
   }
+
+  console.log("Rendering BingoBoard with card:", bingoCard);
 
   return (
     <>
