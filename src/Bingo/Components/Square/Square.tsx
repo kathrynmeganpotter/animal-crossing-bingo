@@ -1,18 +1,26 @@
 import "./square.scss";
 
-export default function BingoSquare({ name, onBingoSquareClick, selected }) {
+type SquareProps = {
+  name: string;
+  photoImage: string;
+  selected: boolean;
+  onBingoSquareClick: () => void;
+};
+
+export default function Square({ name, photoImage, onBingoSquareClick, selected } : SquareProps) {
   return (
     <div className="col border">
       <div
         className='bingo-card__square'
         onClick={onBingoSquareClick}
       >
+        <img src={photoImage} alt={name} className="bingo-card__square--image"/>
         {selected && (
           <span className="bingo-card__square--selected">
-            ✘
+            ✖
           </span>
         )}
-        <p className="lead font-weight-normal">{name}</p>
+        <span className="bingo-card__square--text">{name}</span>
       </div>
     </div>
   );

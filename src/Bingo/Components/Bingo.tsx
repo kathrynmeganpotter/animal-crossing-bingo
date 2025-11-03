@@ -15,15 +15,15 @@ export default function Game() {
    * Generate a list of all the villagers excluding any that have been selected by the user/ sanrio villagers
    * @returns an array consisting of all the villagers name
    */
-  function getAvailableVillagerNames() {
+  function getAvailableVillagers() {
     // combine villagers from default ignore array with any excluded villagers
-    const ignored = new Set([...DEFAULT_IGNORED_VILLAGERS, ...excludedVillagers]);
+    const ignored = new Set<string>([...DEFAULT_IGNORED_VILLAGERS, ...excludedVillagers]);
     // return a list of available villagers excluding any ignored villagers
-    return villagers.filter((v) => !ignored.has(v.name)).map((v) => v.name);
+    return villagers.filter((v) => !ignored.has(v.name)).map((v) => ({ name: v.name, photoImage: v.photoImage }));
   }
 
-  const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagerNames);
-  const nameArray = useMemo(() => getAvailableVillagerNames(), [excludedVillagers]);
+  const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagers);
+  const nameArray = useMemo(() => getAvailableVillagers(), [excludedVillagers]);
 
   return (
     <Grid size={12} sx={{ margin: 2.5 }}>

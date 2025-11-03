@@ -1,38 +1,56 @@
 .bingo-card {
-    &__square {
-        padding: 3px; 
-        display: flex;
-        justify-content: center; 
-        align-items: center;
-        border: 0.5px solid black;
-        height: 55px; 
-        width: 55px;
-        position: relative;
+  &__square {
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid black;
+    height: 55px;
+    width: 55px;
+    position: relative;
 
-        &--selected {
-            position: absolute;
-            font-size: 2rem;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 0, 0, 0.7);
-            font-size: 2rem;
-            pointer-events: none;
-            z-index: 2;
-        }
+    &--selected {
+      position: absolute;
+      font-size: 2rem;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 0, 0, 0.7);
+      font-size: 2rem;
+      pointer-events: none;
+      z-index: 2;
     }
+
+    &--image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &--text {
+      position: absolute;
+      bottom: 2px;
+      left: 2px;
+      font-size: 0.75rem;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 1px 3px;
+      border-radius: 3px;
+      text-align: center;
+    }
+  }
 }
 
 @media only screen and (min-width: 600px) {
-    .bingo-card__square {
-        padding: 5px;
-        width: 80px;
-        height: 80px;
+  .bingo-card__square {
+    width: 80px;
+    height: 80px;
 
-        &--selected {
-             font-size: 4rem;
-        }
+    &--selected {
+      font-size: 5rem;
     }
+  }
 }
