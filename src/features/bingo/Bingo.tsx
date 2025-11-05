@@ -1,14 +1,19 @@
 import { Grid } from "@mui/material";
 import { useState, useMemo } from "react";
 import { villagers } from "animal-crossing";
-import HowToPlay from "./HowToPlay/HowToPlay.tsx";
-import BingoControls from "./Controls/Controls.tsx";
-import Board from "./Board/Board.tsx";
-import { useGenerateBingoCard } from "../Hooks/useGenerateBingoCard.tsx";
-import { DEFAULT_IGNORED_VILLAGERS } from "../../Constants/SanrioVillagers.ts";
+import HowToPlay from "./components/HowToPlay/HowToPlay.tsx";
+import Controls from "./components/Controls/Controls.tsx";
+import Board from "./components/Board/Board.tsx";
+import { useGenerateBingoCard } from "./hooks/useGenerateBingoCard.tsx";
+import { DEFAULT_IGNORED_VILLAGERS } from "./consts/index.ts";
+
+type VillagerOption = {
+  name: string;
+  photoImage: string;
+};
 
 export default function Game() {
-  const [excludedVillagers, setExcludedVillagers] = useState([]);
+  const [excludedVillagers, setExcludedVillagers] = useState<VillagerOption[]>([]);
   const [reset, setReset] = useState(false);
 
   /**
@@ -17,9 +22,13 @@ export default function Game() {
    */
   function getAvailableVillagers() {
     // combine villagers from default ignore array with any excluded villagers
-    const ignored = new Set<string>([...DEFAULT_IGNORED_VILLAGERS, ...excludedVillagers]);
+    const ignoredNames = new Set([...DEFAULT_IGNORED_VILLAGERS,...excludedVillagers.map(v => v.name),]);
     // return a list of available villagers excluding any ignored villagers
-    return villagers.filter((v) => !ignored.has(v.name)).map((v) => ({ name: v.name, photoImage: v.photoImage }));
+    const availableVillagers: VillagerOption[] = villagers.filter(v => !ignoredNames.has(v.name)).map(v => ({
+      name: v.name,
+      photoImage: v.photoImage,
+    }));
+    return availableVillagers;
   }
 
   const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagers);
@@ -28,7 +37,7 @@ export default function Game() {
   return (
     <Grid size={12} sx={{ margin: 2.5 }}>
       <HowToPlay />
-      <BingoControls
+      <Controls
         nameArray={nameArray}
         generateBingoCard={generateBingoCard}
         setExcludedVillagers={setExcludedVillagers}

@@ -7,8 +7,17 @@ import {
   Chip,
   Autocomplete,
 } from "@mui/material";
+import { VillagerOption } from "../../types";
 
-export default function VillagerSelector ({ villagers, setExcludedVillagers }) {
+interface VillagerSelectorProps {
+  villagers: VillagerOption[];
+  setExcludedVillagers: (villagers: VillagerOption[]) => void;
+}
+
+export default function VillagerSelector({
+  villagers,
+  setExcludedVillagers,
+}: VillagerSelectorProps) {
   const [selected, setSelected] = useState<string[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
@@ -23,18 +32,18 @@ export default function VillagerSelector ({ villagers, setExcludedVillagers }) {
         <FormControl sx={{ minWidth: 300 }}>
           <Autocomplete
             freeSolo
-            options={villagers}
+            options={villagers.map((option) => option.name)}
             inputValue={searchText}
-            onInputChange={(_, newInputValue) =>
-              setSearchText(newInputValue)
-            }
-            onChange={(_, newValue : { label : string }) => {
-              let valueToAdd = typeof newValue === "string" ? newValue : newValue?.label || "";
-              if (valueToAdd && !selected.includes(valueToAdd)) {
-                setSelected([...selected, valueToAdd]);
-                setExcludedVillagers([...selected, newValue]);
-                setSearchText("");
-              }
+            onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
+            onChange={(_, newValue: string | null) => {
+              // if (newValue && !selected.includes(newValue.name)) {
+              //   const updatedSelected = [...selected, newValue.name];
+              //   setSelected(updatedSelected);
+              //   const excludedVillagers = villagers.filter(v =>
+              //     updatedSelected.includes(v.name)
+              //   );
+              //   setExcludedVillagers(excludedVillagers);
+              // }
             }}
             renderInput={(params) => (
               <TextField
@@ -50,7 +59,15 @@ export default function VillagerSelector ({ villagers, setExcludedVillagers }) {
       </Box>
       <div>
         {selected.length > 0 && (
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, justifyContent: "center", paddingBottom: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 0.5,
+              justifyContent: "center",
+              paddingBottom: 2,
+            }}
+          >
             {selected.map((value) => (
               <Chip key={value} label={value} />
             ))}

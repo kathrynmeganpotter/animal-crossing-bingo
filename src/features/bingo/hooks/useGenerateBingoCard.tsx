@@ -1,12 +1,8 @@
 import { useState } from "react"; 
+import { VillagerOption } from "../types";
 
-type Villager = {
-  name: string;
-  photoImage: string;
-}
-
-export function useGenerateBingoCard(getAvailableVillagers: () => Villager[]): [Villager[], () => void] {
-  const [bingoCard, setBingoCard] = useState<Villager[]>([]);
+export function useGenerateBingoCard(getAvailableVillagers: () => VillagerOption[]): [VillagerOption[], () => void] {
+  const [bingoCard, setBingoCard] = useState<VillagerOption[]>([]);
 
   function generateCard() {
     const villagersArray: { name: string; photoImage: string }[] = [...getAvailableVillagers()];

@@ -14,7 +14,9 @@ export default function Square({ name, photoImage, onBingoSquareClick, selected 
         className='bingo-card__square'
         onClick={onBingoSquareClick}
       >
-        <img src={photoImage} alt={name} className="bingo-card__square--image"/>
+        {photoImage &&
+          <img src={photoImage} alt={name} className="bingo-card__square--image"/> 
+        }
         {selected && (
           <span className="bingo-card__square--selected">
             ✖
