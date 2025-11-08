@@ -27,8 +27,7 @@ export default function VillagerSelector({
       <Typography variant="body2">
         Select villagers to be excluded from the bingo card
       </Typography>
-      <br />
-      <Box sx={{ paddingBottom: 2 }}>
+      <Box>
         <FormControl sx={{ minWidth: 300 }}>
           <Autocomplete
             freeSolo
@@ -36,14 +35,14 @@ export default function VillagerSelector({
             inputValue={searchText}
             onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
             onChange={(_, newValue: string | null) => {
-              // if (newValue && !selected.includes(newValue.name)) {
-              //   const updatedSelected = [...selected, newValue.name];
-              //   setSelected(updatedSelected);
-              //   const excludedVillagers = villagers.filter(v =>
-              //     updatedSelected.includes(v.name)
-              //   );
-              //   setExcludedVillagers(excludedVillagers);
-              // }
+              if (newValue && !selected.includes(newValue)) {
+                const updatedSelected = [...selected, newValue];
+                setSelected(updatedSelected);
+                const excludedVillagers = villagers.filter(v =>
+                  updatedSelected.includes(v.name)
+                );
+                setExcludedVillagers(excludedVillagers);
+              }
             }}
             renderInput={(params) => (
               <TextField

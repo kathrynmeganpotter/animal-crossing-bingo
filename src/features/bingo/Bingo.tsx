@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { villagers } from "animal-crossing";
 import HowToPlay from "./components/HowToPlay/HowToPlay.tsx";
 import Controls from "./components/Controls/Controls.tsx";
@@ -31,6 +31,9 @@ export default function Game() {
     return availableVillagers;
   }
 
+  const [hasFreeSpace, setHasFreeSpace] = useState(true);
+  const [size, setSize] = useState(5);
+
   const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagers);
   const nameArray = useMemo(() => getAvailableVillagers(), [excludedVillagers]);
 
@@ -41,10 +44,14 @@ export default function Game() {
         nameArray={nameArray}
         generateBingoCard={generateBingoCard}
         setExcludedVillagers={setExcludedVillagers}
+        freeSpace={hasFreeSpace}
+        setHasFreeSpace={setHasFreeSpace}
+        size={size}
+        setSize={setSize}
       />
       <div className="main-content">
         {bingoCard.length > 0 && (
-          <Board bingoCard={bingoCard} reset={reset} setReset={setReset} />
+          <Board bingoCard={bingoCard} reset={reset} setReset={setReset} size={size}/>
         )}
       </div>
     </Grid>

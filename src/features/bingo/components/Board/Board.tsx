@@ -8,13 +8,14 @@ interface BoardProps {
   bingoCard: { name: string; photoImage: string }[];
   reset: boolean;
   setReset: (reset: boolean) => void;
+  size: number;
 }
 
-export default function Board({ bingoCard, reset, setReset } : BoardProps) {
-  const [Squares, setSquares] = useState(Array(25).fill(false));
+export default function Board({ bingoCard, reset, setReset, size } : BoardProps) {
+  const [squares, setSquares] = useState(Array(size * size).fill(false));
   const [bingo, setBingo] = useState(false);
 
-  const hasBingo = useBingoCheck(Squares);
+  const hasBingo = useBingoCheck(squares, size);
 
   useEffect(() => {
     if (hasBingo && !bingo) {
@@ -23,7 +24,7 @@ export default function Board({ bingoCard, reset, setReset } : BoardProps) {
   }, [hasBingo]);
 
   useEffect(() => {
-    setSquares(Array(25).fill(false));
+    setSquares(Array(size * size).fill(false));
     setReset(false);
   }, [reset]);
 
@@ -35,8 +36,8 @@ export default function Board({ bingoCard, reset, setReset } : BoardProps) {
     });
   }
 
-  const rows = 5;
-  const cols = 5;
+  const rows = size;
+  const cols = size;
 
   return (
     <>
@@ -58,12 +59,14 @@ export default function Board({ bingoCard, reset, setReset } : BoardProps) {
                 const squareIndex = colIndex * cols + rowIndex;
                 return (
                   <Square
+                    size={size}
+                    key={squareIndex}
                     name={bingoCard[squareIndex].name}
                     photoImage={bingoCard[squareIndex].photoImage}
                     onBingoSquareClick={() =>
-                      handleClick(squareIndex, Squares[squareIndex])
+                      handleClick(squareIndex, squares[squareIndex])
                     }
-                    selected={Squares[squareIndex]}
+                    selected={squares[squareIndex]}
                   />
                 );
               })}

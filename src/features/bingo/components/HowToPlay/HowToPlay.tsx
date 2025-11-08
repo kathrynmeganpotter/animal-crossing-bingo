@@ -8,8 +8,9 @@ export default function HowToPlay() {
         <li>
           Select villagers that you want to be excluded from the bingo card
         </li>
+        <li>Select the size and if it should include the free space square or not</li>
         <li>Click the generate button</li>
-        <li>When you find a villager click on the square</li>
+        <li>When you find a villager click on the square.</li>
       </ol>
     </Alert>
   );

@@ -4,14 +4,15 @@ type SquareProps = {
   name: string;
   photoImage: string;
   selected: boolean;
+  size: number;
   onBingoSquareClick: () => void;
 };
 
-export default function Square({ name, photoImage, onBingoSquareClick, selected } : SquareProps) {
+export default function Square({ name, photoImage, onBingoSquareClick, selected, size } : SquareProps) {
   return (
     <div className="col border">
       <div
-        className='bingo-card__square'
+        className={`bingo-card__square bingo-card__square--size-${size}`}
         onClick={onBingoSquareClick}
       >
         {photoImage &&
