@@ -37,12 +37,17 @@ export default function Game() {
   const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagers);
   const nameArray = useMemo(() => getAvailableVillagers(), [excludedVillagers]);
 
+  const handleGenerateBingoCard = (hasFreeSpace: boolean, size: number) => {
+    setReset(true);
+    generateBingoCard(hasFreeSpace, size);
+  };
+
   return (
     <Grid size={12} sx={{ margin: 2.5 }}>
       <HowToPlay />
       <Controls
         nameArray={nameArray}
-        generateBingoCard={generateBingoCard}
+        generateBingoCard={handleGenerateBingoCard}
         setExcludedVillagers={setExcludedVillagers}
         freeSpace={hasFreeSpace}
         setHasFreeSpace={setHasFreeSpace}
