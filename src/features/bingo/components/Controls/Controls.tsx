@@ -35,7 +35,7 @@ export default function Controls({
   const [pendingSize, setPendingSize] = useState(size);
   const [pendingFreeSpace, setPendingFreeSpace] = useState(freeSpace);
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setPendingSize(event.target.value);
     if (event.target.value === 4 || event.target.value === 6) {
       setHasFreeSpace(false);
@@ -53,6 +53,7 @@ export default function Controls({
           control={
             <Switch
               checked={pendingFreeSpace}
+              disabled={pendingSize === 4 || pendingSize === 6}
               onChange={(event) => setPendingFreeSpace(event?.target.checked)}
             />
           }
