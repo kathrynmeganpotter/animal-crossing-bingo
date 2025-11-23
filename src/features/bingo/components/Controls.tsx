@@ -14,7 +14,7 @@ import { VillagerOption } from "../types/index.ts";
 import { useState } from "react";
 
 interface ControlsProps {
-  nameArray: { name: string; photoImage: string }[];
+  villagers: { name: string; photoImage: string }[];
   generateBingoCard: (hasFreeSpace: boolean, size: number) => void;
   setExcludedVillagers: (villagers: VillagerOption[]) => void;
   freeSpace: boolean;
@@ -24,7 +24,7 @@ interface ControlsProps {
 }
 
 export default function Controls({
-  nameArray,
+  villagers,
   generateBingoCard,
   setExcludedVillagers,
   freeSpace,
@@ -45,7 +45,7 @@ export default function Controls({
   return (
     <Box sx={{ textAlign: "center", padding: 2, display: "flex", flexDirection: "column", gap: 1, alignItems: "center" }}>
       <VillagerSelector
-        villagers={nameArray}
+        villagers={villagers}
         setExcludedVillagers={setExcludedVillagers}
       />
       <FormGroup>

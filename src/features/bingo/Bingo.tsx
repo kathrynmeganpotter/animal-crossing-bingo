@@ -33,9 +33,9 @@ export default function Bingo() {
 
   const [hasFreeSpace, setHasFreeSpace] = useState(true);
   const [size, setSize] = useState(5);
-
   const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagers);
-  const nameArray = useMemo(() => getAvailableVillagers(), [excludedVillagers]);
+  
+  const availableVillagers = useMemo(() => getAvailableVillagers(), [excludedVillagers]);
 
   const handleGenerateBingoCard = (hasFreeSpace: boolean, size: number) => {
     setReset(true);
@@ -46,7 +46,7 @@ export default function Bingo() {
     <Grid size={12} sx={{ margin: 2.5 }}>
       <HowToPlay />
       <Controls
-        nameArray={nameArray}
+        villagers={availableVillagers}
         generateBingoCard={handleGenerateBingoCard}
         setExcludedVillagers={setExcludedVillagers}
         freeSpace={hasFreeSpace}

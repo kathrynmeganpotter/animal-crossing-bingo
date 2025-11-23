@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Typography,
   FormControl,
@@ -21,6 +21,10 @@ export default function VillagerSelector({
   const [selected, setSelected] = useState<string[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
+  const availableVillagers = useMemo(() => {
+    return villagers.filter(v => !selected.includes(v.name));
+  }, [villagers, selected]);
+
   return (
     <>
       <Typography variant="h6">Select villagers</Typography>
@@ -31,7 +35,7 @@ export default function VillagerSelector({
         <FormControl sx={{ minWidth: 300 }}>
           <Autocomplete
             freeSolo
-            options={villagers.map((option) => option.name)}
+            options={availableVillagers.map((option) => option.name)}
             inputValue={searchText}
             onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
             onChange={(_, newValue: string | null) => {
@@ -49,10 +53,11 @@ export default function VillagerSelector({
                 {...params}
                 label="Search villagers"
                 variant="outlined"
+                helperText={selected.length >= 10 ? "Maximum 10 villagers allowed" : ""}
               />
             )}
-            disableClearable
             sx={{ minWidth: 300 }}
+            disabled={selected.length >= 10}
           />
         </FormControl>
       </Box>
@@ -68,7 +73,7 @@ export default function VillagerSelector({
             }}
           >
             {selected.map((value) => (
-              <Chip key={value} label={value} />
+              <Chip key={value} label={value} onDelete={() => { setSelected(prev => prev.filter(item => item !== value))}}/>
             ))}
           </Box>
         )}
