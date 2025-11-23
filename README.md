@@ -7,7 +7,6 @@ A React-based Bingo card generator using Animal Crossing villagers. Users can se
 ## Table of Contents
 
 - [Features](#features)
-- [Demo](#demo)
 - [Getting Started](#getting-started)
 - [Available Scripts](#available-scripts)
 - [Technologies Used](#technologies-used)
@@ -65,6 +64,7 @@ yarn install
 
 ---
 ##Folder Structure
+```
 src/
 ├── components/
 │   ├── Board.tsx
@@ -80,8 +80,9 @@ src/
 │   └── index.ts
 ├── bingo.tsx
 └── index.tsx
+```
 ---
 ## Credits
 
 - [Animal Crossing NPM package](https://www.npmjs.com/package/animal-crossing?activeTab=readme)
-- [Animal Crossing spreadsheet](https://www.npmjs.com/package/animal-crossing?activeTab=readme](https://docs.google.com/spreadsheets/d/1mo7myqHry5r_TKvakvIhHbcEAEQpSiNoNQoIS8sMpvM/edit#gid=1397507627)
+- [Animal Crossing spreadsheet](https://docs.google.com/spreadsheets/d/1mo7myqHry5r_TKvakvIhHbcEAEQpSiNoNQoIS8sMpvM/edit#gid=1397507627)
