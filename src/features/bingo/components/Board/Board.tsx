@@ -1,6 +1,5 @@
-import { Snackbar } from "@mui/material";
+import { Snackbar, Box } from "@mui/material";
 import Square from "../Square/Square.tsx";
-import "./board.scss";
 import { useBingoCheck } from "../../hooks/useBingoCheck.tsx";
 import { useEffect, useState } from "react";
 
@@ -11,7 +10,12 @@ interface BoardProps {
   size: number;
 }
 
-export default function Board({ bingoCard, reset, setReset, size } : BoardProps) {
+export default function Board({
+  bingoCard,
+  reset,
+  setReset,
+  size,
+}: BoardProps) {
   const [squares, setSquares] = useState(Array(size * size).fill(false));
   const [bingo, setBingo] = useState(false);
 
@@ -36,44 +40,37 @@ export default function Board({ bingoCard, reset, setReset, size } : BoardProps)
     });
   }
 
-  const rows = size;
-  const cols = size;
-
   return (
     <>
-      <div className="success-message px-4">
-        {bingo && (
-          <Snackbar
-            open={bingo}
-            autoHideDuration={5000}
-            onClose={() => setBingo(false)}
-            message="Bingo!!!"
-          />
-        )}
-      </div>
-      <div className="bingo-card">
-        <div className="board">
-          {[...Array(rows)].map((_, rowIndex) => (
-            <div className="bingo-card__row" key={rowIndex}>
-              {[...Array(cols)].map((_, colIndex) => {
-                const squareIndex = colIndex * cols + rowIndex;
-                return (
-                  <Square
-                    size={size}
-                    key={squareIndex}
-                    name={bingoCard[squareIndex].name}
-                    photoImage={bingoCard[squareIndex].photoImage}
-                    onBingoSquareClick={() =>
-                      handleClick(squareIndex, squares[squareIndex])
-                    }
-                    selected={squares[squareIndex]}
-                  />
-                );
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
+      {bingo && (
+        <Snackbar
+          open={bingo}
+          autoHideDuration={5000}
+          onClose={() => setBingo(false)}
+          message="Bingo!!!"
+        />
+      )}
+      <Box className="bingo-card" sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        {[...Array(size)].map((_, rowIndex) => (
+          <Box className="bingo-card__row" key={rowIndex}>
+            {[...Array(size)].map((_, colIndex) => {
+              const squareIndex = colIndex * size + rowIndex;
+              return (
+                <Square
+                  size={size}
+                  key={squareIndex}
+                  name={bingoCard[squareIndex].name}
+                  photoImage={bingoCard[squareIndex].photoImage}
+                  onBingoSquareClick={() =>
+                    handleClick(squareIndex, squares[squareIndex])
+                  }
+                  selected={squares[squareIndex]}
+                />
+              );
+            })}
+          </Box>
+        ))}
+      </Box>
     </>
   );
 }

@@ -43,7 +43,7 @@ export default function Controls({
   };
 
   return (
-    <Box sx={{ textAlign: "center", padding: 2, display: "flex", flexDirection: "column", gap: 1, alignItems: "center", justifyContent: "center" }}>
+    <Box sx={{ textAlign: "center", padding: 2, display: "flex", flexDirection: "column", gap: 1, alignItems: "center" }}>
       <VillagerSelector
         villagers={nameArray}
         setExcludedVillagers={setExcludedVillagers}

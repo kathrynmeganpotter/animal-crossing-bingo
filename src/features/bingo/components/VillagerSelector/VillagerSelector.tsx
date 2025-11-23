@@ -56,7 +56,7 @@ export default function VillagerSelector({
           />
         </FormControl>
       </Box>
-      <div>
+      <Box>
         {selected.length > 0 && (
           <Box
             sx={{
@@ -72,7 +72,7 @@ export default function VillagerSelector({
             ))}
           </Box>
         )}
-      </div>
+      </Box>
     </>
   );
 }

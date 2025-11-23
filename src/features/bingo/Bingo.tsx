@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { villagers } from "animal-crossing";
 import HowToPlay from "./components/HowToPlay/HowToPlay.tsx";
 import Controls from "./components/Controls/Controls.tsx";
@@ -12,7 +12,7 @@ type VillagerOption = {
   photoImage: string;
 };
 
-export default function Game() {
+export default function Bingo() {
   const [excludedVillagers, setExcludedVillagers] = useState<VillagerOption[]>([]);
   const [reset, setReset] = useState(false);
 
