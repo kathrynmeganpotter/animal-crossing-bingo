@@ -7,7 +7,7 @@ import {
   Chip,
   Autocomplete,
 } from "@mui/material";
-import { VillagerOption } from "../../types";
+import { VillagerOption } from "../types";
 
 interface VillagerSelectorProps {
   villagers: VillagerOption[];

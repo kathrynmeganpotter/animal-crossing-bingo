@@ -1,9 +1,9 @@
 import { Grid } from "@mui/material";
 import { useState, useMemo } from "react";
 import { villagers } from "animal-crossing";
-import HowToPlay from "./components/HowToPlay/HowToPlay.tsx";
-import Controls from "./components/Controls/Controls.tsx";
-import Board from "./components/Board/Board.tsx";
+import HowToPlay from "./components/HowToPlay.tsx";
+import Controls from "./components/Controls.tsx";
+import Board from "./components/Board.tsx";
 import { useGenerateBingoCard } from "./hooks/useGenerateBingoCard.tsx";
 import { DEFAULT_IGNORED_VILLAGERS } from "./consts/index.ts";
 

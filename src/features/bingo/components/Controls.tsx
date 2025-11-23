@@ -1,4 +1,4 @@
-import VillagerSelector from "../VillagerSelector/VillagerSelector.tsx";
+import VillagerSelector from "./VillagerSelector.tsx";
 import {
   Box,
   Button,
@@ -10,7 +10,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { VillagerOption } from "../../types";
+import { VillagerOption } from "../types/index.ts";
 import { useState } from "react";
 
 interface ControlsProps {
