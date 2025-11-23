@@ -1,5 +1,5 @@
 import { Snackbar, Box } from "@mui/material";
-import Square from "./Square/Square.tsx";
+import Square from "./Square.tsx";
 import { useBingoCheck } from "../hooks/useBingoCheck.tsx";
 import { useEffect, useState } from "react";
 
