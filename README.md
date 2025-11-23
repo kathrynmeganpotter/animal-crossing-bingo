@@ -63,7 +63,7 @@ yarn install
 - React Router – Navigation and URL params
 
 ---
-##Folder Structure
+## Folder Structure
 ```
 src/
 ├── components/
