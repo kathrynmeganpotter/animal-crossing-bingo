@@ -1,4 +1,4 @@
-import "./square.scss";
+import { Box, Typography } from "@mui/material";
 
 type SquareProps = {
   name: string;
@@ -8,23 +8,84 @@ type SquareProps = {
   onBingoSquareClick: () => void;
 };
 
-export default function Square({ name, photoImage, onBingoSquareClick, selected, size } : SquareProps) {
+enum SquareSize {
+  Size3 = 80,
+  Size4 = 60,
+  Size5 = 50,
+  Size6 = 40,
+}
+
+export default function Square({
+  name,
+  photoImage,
+  onBingoSquareClick,
+  selected,
+  size,
+}: SquareProps) {
+  const squareSize = SquareSize[`Size${size}`];
+
   return (
-    <div className="col border">
-      <div
-        className={`bingo-card__square bingo-card__square--size-${size}`}
-        onClick={onBingoSquareClick}
+    <Box
+      role="button"
+      aria-pressed={selected}
+      onClick={onBingoSquareClick}
+      sx={{
+        padding: "2px",
+        position: "relative",
+        display: "flex",
+        border: "0.5px solid black",
+        width: {
+          xs: squareSize,
+          sm: 80
+        },
+        height: {
+          xs: squareSize,
+          sm: 80
+        },
+        cursor: "pointer",
+      }}
+    >
+      {photoImage && (
+        <Box
+          component="img"
+          src={photoImage}
+          alt={name}
+          sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      )}
+      {selected && (
+        <Typography
+          component="span"
+          sx={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#FF0000B2",
+            fontSize: {
+              xs: "2rem",
+              sm: "5rem"
+            },
+            zIndex: 2,
+          }}
+        >
+          ✖
+        </Typography>
+      )}
+      <Typography
+        component="span"
+        sx={{
+          position: "absolute",
+          bottom: 2,
+          backgroundColor: "#FFFFFFB2",
+          padding: "0 4px",
+          borderRadius: "4px",
+          fontSize: "0.75rem",
+        }}
       >
-        {photoImage &&
-          <img src={photoImage} alt={name} className="bingo-card__square--image"/> 
-        }
-        {selected && (
-          <span className="bingo-card__square--selected">
-            ✖
-          </span>
-        )}
-        <span className="bingo-card__square--text">{name}</span>
-      </div>
-    </div>
+        {name}
+      </Typography>
+    </Box>
   );
 }
