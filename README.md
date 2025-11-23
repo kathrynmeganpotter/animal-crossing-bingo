@@ -49,7 +49,7 @@ cd animal-crossing-bingo
 npm install
 # or
 yarn install
-
+```
 ---
 ## Available Scripts
 - npm dev – Runs the app in development mode.
