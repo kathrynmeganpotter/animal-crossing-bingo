@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { VillagerOption } from "../types/index.ts";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 interface ControlsProps {
   villagers: { name: string; photoImage: string }[];
@@ -32,21 +33,47 @@ export default function Controls({
   size,
   setSize,
 }: ControlsProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
   const [pendingSize, setPendingSize] = useState(size);
   const [pendingFreeSpace, setPendingFreeSpace] = useState(freeSpace);
+
+  const initialSelected = searchParams.get("selectedVillagers");
+  const [selectedVillagers, setSelectedVillagers] = useState<string[]>(
+    initialSelected ? initialSelected.split(",") : []
+  );
 
   const handleChange = (event: any) => {
     setPendingSize(event.target.value);
     if (event.target.value === 4 || event.target.value === 6) {
-      setHasFreeSpace(false);
+      setPendingFreeSpace(false);
     }
   };
 
+  const updateUrlParams = () => {
+    const params = new URLSearchParams();
+    params.set("size", size.toString());
+    params.set("freeSpace", freeSpace.toString());
+    params.set("selectedVillagers", selectedVillagers.join(","));
+    setSearchParams(params);
+  }
+
   return (
-    <Box sx={{ textAlign: "center", padding: 2, display: "flex", flexDirection: "column", gap: 1, alignItems: "center" }}>
+    <Box
+      sx={{
+        textAlign: "center",
+        padding: 2,
+        display: "flex",
+        flexDirection: "column",
+        gap: 1,
+        alignItems: "center",
+      }}
+    >
       <VillagerSelector
         villagers={villagers}
         setExcludedVillagers={setExcludedVillagers}
+        selectedVillagers={selectedVillagers}
+        setSelectedVillagers={setSelectedVillagers}
       />
       <FormGroup>
         <FormControlLabel
@@ -75,11 +102,15 @@ export default function Controls({
           <MenuItem value={6}>6x6</MenuItem>
         </Select>
       </FormControl>
-      <Button variant="contained" onClick={() => {
-         setSize(pendingSize);
-         setHasFreeSpace(pendingFreeSpace);
-         generateBingoCard(pendingFreeSpace, pendingSize);
-        }}>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setSize(pendingSize);
+          setHasFreeSpace(pendingFreeSpace);
+          generateBingoCard(pendingFreeSpace, pendingSize);
+          updateUrlParams();
+        }}
+      >
         Generate
       </Button>
     </Box>

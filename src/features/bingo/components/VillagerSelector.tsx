@@ -8,22 +8,26 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { VillagerOption } from "../types";
-
+import { useSearchParams } from "react-router-dom";
 interface VillagerSelectorProps {
   villagers: VillagerOption[];
-  setExcludedVillagers: (villagers: VillagerOption[]) => void;
+  selectedVillagers: string[];
+  setSelectedVillagers: React.Dispatch<React.SetStateAction<string[]>>;
+  setExcludedVillagers: React.Dispatch<React.SetStateAction<VillagerOption[]>>;
 }
 
 export default function VillagerSelector({
   villagers,
+  selectedVillagers,
+  setSelectedVillagers,
   setExcludedVillagers,
 }: VillagerSelectorProps) {
-  const [selected, setSelected] = useState<string[]>([]);
+
   const [searchText, setSearchText] = useState<string>("");
 
   const availableVillagers = useMemo(() => {
-    return villagers.filter(v => !selected.includes(v.name));
-  }, [villagers, selected]);
+    return villagers.filter((v) => !selectedVillagers.includes(v.name));
+  }, [villagers, selectedVillagers]);
 
   return (
     <>
@@ -39,10 +43,10 @@ export default function VillagerSelector({
             inputValue={searchText}
             onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
             onChange={(_, newValue: string | null) => {
-              if (newValue && !selected.includes(newValue)) {
-                const updatedSelected = [...selected, newValue];
-                setSelected(updatedSelected);
-                const excludedVillagers = villagers.filter(v =>
+              if (newValue && !selectedVillagers.includes(newValue)) {
+                const updatedSelected = [...selectedVillagers, newValue];
+                setSelectedVillagers(updatedSelected);
+                const excludedVillagers = villagers.filter((v) =>
                   updatedSelected.includes(v.name)
                 );
                 setExcludedVillagers(excludedVillagers);
@@ -53,16 +57,20 @@ export default function VillagerSelector({
                 {...params}
                 label="Search villagers"
                 variant="outlined"
-                helperText={selected.length >= 10 ? "Maximum 10 villagers allowed" : ""}
+                helperText={
+                  selectedVillagers.length >= 10
+                    ? "Maximum 10 villagers allowed"
+                    : ""
+                }
               />
             )}
             sx={{ minWidth: 300 }}
-            disabled={selected.length >= 10}
+            disabled={selectedVillagers.length >= 10}
           />
         </FormControl>
       </Box>
       <Box>
-        {selected.length > 0 && (
+        {selectedVillagers.length > 0 && (
           <Box
             sx={{
               display: "flex",
@@ -72,8 +80,19 @@ export default function VillagerSelector({
               paddingBottom: 2,
             }}
           >
-            {selected.map((value) => (
-              <Chip key={value} label={value} onDelete={() => { setSelected(prev => prev.filter(item => item !== value))}}/>
+            {selectedVillagers.map((value) => (
+              <Chip
+                key={value}
+                label={value}
+                onDelete={() => {
+                  setSelectedVillagers((prev) =>
+                    prev.filter((item) => item !== value)
+                  );
+                  setExcludedVillagers((prev) =>
+                    prev.filter((v) => v.name !== value)
+                  );
+                }}
+              />
             ))}
           </Box>
         )}

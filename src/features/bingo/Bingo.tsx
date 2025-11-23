@@ -6,6 +6,7 @@ import Controls from "./components/Controls.tsx";
 import Board from "./components/Board.tsx";
 import { useGenerateBingoCard } from "./hooks/useGenerateBingoCard.tsx";
 import { DEFAULT_IGNORED_VILLAGERS } from "./consts/index.ts";
+import { useSearchParams } from "react-router-dom";
 
 type VillagerOption = {
   name: string;
@@ -13,8 +14,7 @@ type VillagerOption = {
 };
 
 export default function Bingo() {
-  const [excludedVillagers, setExcludedVillagers] = useState<VillagerOption[]>([]);
-  const [reset, setReset] = useState(false);
+  const [searchParams] = useSearchParams();
 
   /**
    * Generate a list of all the villagers excluding any that have been selected by the user/ sanrio villagers
@@ -31,11 +31,17 @@ export default function Bingo() {
     return availableVillagers;
   }
 
-  const [hasFreeSpace, setHasFreeSpace] = useState(true);
-  const [size, setSize] = useState(5);
+  const [excludedVillagers, setExcludedVillagers] = useState<VillagerOption[]>([]);
+  const [reset, setReset] = useState(false);
   const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagers);
   
   const availableVillagers = useMemo(() => getAvailableVillagers(), [excludedVillagers]);
+
+  const initialSize = Number(searchParams.get("size") ?? 5);
+  const [size, setSize] = useState(initialSize);
+
+  const initialFreeSpace = searchParams.get("freeSpace") === "false" ? false : true;
+  const [hasFreeSpace, setHasFreeSpace] = useState(initialFreeSpace);
 
   const handleGenerateBingoCard = (hasFreeSpace: boolean, size: number) => {
     setReset(true);
