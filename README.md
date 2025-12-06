@@ -24,9 +24,10 @@ A React-based Bingo card generator using Animal Crossing villagers. Users can se
 - Click squares to mark/unmark them.
 - Message displayed when a row/ column/ diagonal is completed.
 - Dark mode/ light mode switcher
+- Check for new bingos
+- Keyboard accessible
 
 ### Future Features
-- Calculate "new" bingos.
 - Perserve state in local storage
 
 ---
