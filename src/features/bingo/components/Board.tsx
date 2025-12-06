@@ -19,18 +19,28 @@ export default function Board({
   const [squares, setSquares] = useState(Array(size * size).fill(false));
   const [bingo, setBingo] = useState(false);
 
-  const hasBingo = useBingoCheck(squares, size);
-
-  useEffect(() => {
-    if (hasBingo && !bingo) {
-      setBingo(true);
-    }
-  }, [hasBingo]);
+  const { hasBingo, bingoLines } = useBingoCheck(squares, size);
+  const [previousBingoLines, setPreviousBingoLines] = useState<number[][]>([]);
 
   useEffect(() => {
     setSquares(Array(size * size).fill(false));
+    setBingo(false);
+    setPreviousBingoLines([]);
     setReset(false);
   }, [reset]);
+
+  useEffect(() => {
+    // Check if there are any new bingo lines
+    const newBingos = bingoLines.filter(
+      (line) =>
+        !previousBingoLines.some((prev) => prev.toString() === line.toString())
+    );
+    // If there are new bingo lines, set bingo to true
+    if (newBingos.length > 0 && hasBingo) {
+      setBingo(true);
+    }
+    setPreviousBingoLines(bingoLines);
+  }, [bingoLines]);
 
   function handleClick(i: number, state: boolean) {
     setSquares((prev) => {
@@ -50,11 +60,14 @@ export default function Board({
           message="Bingo!!!"
         />
       )}
-      <Box className="bingo-card" sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <Box
+        className="bingo-card"
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
         {[...Array(size)].map((_, rowIndex) => (
           <Box className="bingo-card__row" key={rowIndex}>
             {[...Array(size)].map((_, colIndex) => {
-              const squareIndex = colIndex * size + rowIndex;
+              const squareIndex = rowIndex * size + colIndex;
               return (
                 <Square
                   size={size}

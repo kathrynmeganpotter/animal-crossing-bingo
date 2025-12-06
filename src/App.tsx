@@ -7,7 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useState } from "react";
 
 export default function App() {
-    const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<"light" | "dark">("light");
 
   return (
     <ThemeProvider theme={mode === "light" ? createTheme({ palette: { mode: "light" } }) : createTheme({ palette: { mode: "dark" } })}>
