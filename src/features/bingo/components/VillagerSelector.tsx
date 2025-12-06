@@ -21,18 +21,20 @@ export default function VillagerSelector({
   setSelectedVillagers,
   setExcludedVillagers,
 }: VillagerSelectorProps) {
-
   const [searchText, setSearchText] = useState<string>("");
 
   const availableVillagers = useMemo(() => {
     return villagers.filter((v) => !selectedVillagers.includes(v.name));
   }, [villagers, selectedVillagers]);
 
-  function handleDeleteVillager(value: string) {
-    const updatedSelected = selectedVillagers.filter(v => v !== value);
+  const handleDeleteVillager = (value: string) => {
+    console.log("Deleting villager:", value);
+    const updatedSelected = selectedVillagers.filter((v) => v !== value);
     setSelectedVillagers(updatedSelected);
-    setExcludedVillagers(villagers.filter(v => updatedSelected.includes(v.name)));
-  }
+    setExcludedVillagers(
+      villagers.filter((v) => updatedSelected.includes(v.name))
+    );
+  };
 
   return (
     <>
@@ -91,6 +93,11 @@ export default function VillagerSelector({
                 key={value}
                 label={value}
                 onDelete={() => handleDeleteVillager(value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleDeleteVillager(value);
+                  }
+                }}
               />
             ))}
           </Box>
