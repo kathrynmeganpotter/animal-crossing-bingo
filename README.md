@@ -1,6 +1,6 @@
 # Animal Crossing Bingo
 
-A React-based Bingo card generator using Animal Crossing villagers. Users can select which villagers to include or exclude, mark squares, and persist their game state across page refreshes.
+A React-based Bingo card generator using Animal Crossing villagers. Users can select which villagers should be excluded, customize the bingo board, and mark off any found villagers.
 
 ---
 
@@ -24,9 +24,10 @@ A React-based Bingo card generator using Animal Crossing villagers. Users can se
 - Click squares to mark/unmark them.
 - Message displayed when a row/ column/ diagonal is completed.
 - Dark mode/ light mode switcher
+- Check for new bingos
+- Keyboard accessible
 
 ### Future Features
-- Calculate "new" bingos.
 - Perserve state in local storage
 
 ---
