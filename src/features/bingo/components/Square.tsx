@@ -75,14 +75,17 @@ export default function Square({
       )}
       <Typography
         component="span"
-        sx={{
+        sx={(theme) => ({
           position: "absolute",
           bottom: 2,
-          backgroundColor: "#FFFFFFB2",
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? "#222222B2"
+              : "#FFFFFFB2",
           padding: "0 4px",
           borderRadius: "4px",
           fontSize: "0.75rem",
-        }}
+        })}
       >
         {name}
       </Typography>
