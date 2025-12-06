@@ -34,8 +34,6 @@ export default function Bingo() {
   const [excludedVillagers, setExcludedVillagers] = useState<VillagerOption[]>([]);
   const [reset, setReset] = useState(false);
   const [bingoCard, generateBingoCard] = useGenerateBingoCard(getAvailableVillagers);
-  
-  const availableVillagers = useMemo(() => getAvailableVillagers(), [excludedVillagers]);
 
   const initialSize = Number(searchParams.get("size") ?? 5);
   const [size, setSize] = useState(initialSize);
@@ -52,7 +50,7 @@ export default function Bingo() {
     <Grid size={12} sx={{ margin: 2.5 }}>
       <HowToPlay />
       <Controls
-        villagers={availableVillagers}
+        villagers={getAvailableVillagers()}
         generateBingoCard={handleGenerateBingoCard}
         setExcludedVillagers={setExcludedVillagers}
         freeSpace={hasFreeSpace}

@@ -8,7 +8,6 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { VillagerOption } from "../types";
-import { useSearchParams } from "react-router-dom";
 interface VillagerSelectorProps {
   villagers: VillagerOption[];
   selectedVillagers: string[];
@@ -28,6 +27,12 @@ export default function VillagerSelector({
   const availableVillagers = useMemo(() => {
     return villagers.filter((v) => !selectedVillagers.includes(v.name));
   }, [villagers, selectedVillagers]);
+
+  function handleDeleteVillager(value: string) {
+    const updatedSelected = selectedVillagers.filter(v => v !== value);
+    setSelectedVillagers(updatedSelected);
+    setExcludedVillagers(villagers.filter(v => updatedSelected.includes(v.name)));
+  }
 
   return (
     <>
@@ -82,16 +87,10 @@ export default function VillagerSelector({
           >
             {selectedVillagers.map((value) => (
               <Chip
+                tabIndex={0}
                 key={value}
                 label={value}
-                onDelete={() => {
-                  setSelectedVillagers((prev) =>
-                    prev.filter((item) => item !== value)
-                  );
-                  setExcludedVillagers((prev) =>
-                    prev.filter((v) => v.name !== value)
-                  );
-                }}
+                onDelete={() => handleDeleteVillager(value)}
               />
             ))}
           </Box>

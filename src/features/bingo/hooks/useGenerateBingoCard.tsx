@@ -6,10 +6,8 @@ export function useGenerateBingoCard(
 ): [VillagerOption[], (hasFreeSpace: boolean, size: number) => void] {
   const [bingoCard, setBingoCard] = useState<VillagerOption[]>([]);
 
-  const generateCard = useCallback(
+  const generateBingoCard = useCallback(
     (hasFreeSpace: boolean, size: number) => {
-      console.log("Generating new bingo card with:", { hasFreeSpace, size });
-
       // Get a copy of the available villagers to choose from
       const villagersArray = [...getAvailableVillagers()];
       const cardArray: VillagerOption[] = [];
@@ -19,7 +17,7 @@ export function useGenerateBingoCard(
 
       // Determine the middle index for free space if needed 
       const middleValue =
-        hasFreeSpace && (size === 3 || size === 5)
+        hasFreeSpace && size % 2 === 1
           ? Math.floor(totalSize / 2)
           : -1;
 
@@ -41,5 +39,5 @@ export function useGenerateBingoCard(
     [getAvailableVillagers]
   );
 
-  return [bingoCard, generateCard];
+  return [bingoCard, generateBingoCard];
 }
