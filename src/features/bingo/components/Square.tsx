@@ -9,10 +9,10 @@ type SquareProps = {
 };
 
 enum SquareSize {
-  Size3 = 80,
-  Size4 = 60,
-  Size5 = 50,
-  Size6 = 40,
+  Size3 = 90,
+  Size4 = 70,
+  Size5 = 60,
+  Size6 = 50,
 }
 
 export default function Square({
@@ -36,11 +36,11 @@ export default function Square({
         border: "0.5px solid black",
         width: {
           xs: squareSize,
-          sm: 80
+          sm: 100
         },
         height: {
           xs: squareSize,
-          sm: 80
+          sm: 100
         },
         cursor: "pointer",
       }}
